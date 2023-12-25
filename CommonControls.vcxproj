@@ -128,11 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommonControls.h" />
+    <ClInclude Include="controls\button.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommonControls.cpp" />
+    <ClCompile Include="controls\button.cpp" />
+    <ClCompile Include="controls\commoncontrols.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CommonControls.rc" />
