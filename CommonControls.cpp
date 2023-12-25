@@ -4,6 +4,7 @@
 #include <memory.h>
 #include <tchar.h>
 #include "CommonControls.h"
+#include "controls/commoncontrols.h"
 
 HINSTANCE hInst;
 
@@ -68,15 +69,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
+    register_common_controls();
     
     hInst = hInstance;
     HWND hWnd = CreateWindowW(L"something", L"CommonControls 7", WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
-    if (!hWnd)
-    {
-        return FALSE;
-    }
+    CreateWindowW(Button::class_name, L"Hello World!", 0,
+        10, 10, 90, 23, hWnd, nullptr, hInstance, nullptr);
+
 
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
