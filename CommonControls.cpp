@@ -27,6 +27,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+    case WM_CREATE:
+        CreateWindowW(Button::class_name, L"Hello World!", WS_CHILD | WS_VISIBLE,
+            10, 10, 90, 23, hWnd, nullptr, GetModuleHandle(0), nullptr);
+        break;
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
@@ -68,16 +72,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         return FALSE;
     }
-
-    register_common_controls();
     
     hInst = hInstance;
+    register_common_controls();
+
     HWND hWnd = CreateWindowW(L"something", L"CommonControls 7", WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-
-    CreateWindowW(Button::class_name, L"Hello World!", 0,
-        10, 10, 90, 23, hWnd, nullptr, hInstance, nullptr);
-
 
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
