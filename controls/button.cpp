@@ -3,6 +3,8 @@
 #include <assert.h>
 #include <Windows.h>
 
+#include "util.h"
+
 namespace Button
 {
     LRESULT CALLBACK wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
@@ -16,11 +18,7 @@ namespace Button
                 HDC hdc = BeginPaint(hwnd, &ps);
                 GetClientRect(hwnd, &rect);
 
-                HBRUSH brush = CreateSolidBrush(RGB(255,0,0));
-                SelectObject(hdc, brush);
-                Rectangle(hdc, rect.left, rect.top, rect.right, rect.bottom);
-                SelectObject(hdc, nullptr);
-                DeleteObject(brush);
+                draw_quad(hdc, rect, RGB(51, 51, 51), RGB(155, 155, 155), 1);
                 
                 EndPaint(hwnd, &ps);
                 return 0;
