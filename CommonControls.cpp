@@ -5,12 +5,13 @@
 #include <tchar.h>
 #include "CommonControls.h"
 #include "controls/commoncontrols.h"
+#include "controls/util.h"
 
 HINSTANCE hInst;
 
 
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
@@ -20,29 +21,34 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             switch (wmId)
             {
             case IDM_EXIT:
-                DestroyWindow(hWnd);
+                DestroyWindow(hwnd);
                 break;
             default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
+                return DefWindowProc(hwnd, message, wParam, lParam);
             }
         }
         break;
     case WM_CREATE:
         CreateWindowW(Button::class_name, L"Hello World!", WS_CHILD | WS_VISIBLE,
-            10, 10, 90, 23, hWnd, nullptr, GetModuleHandle(0), nullptr);
+            10, 10, 90, 23, hwnd, nullptr, GetModuleHandle(0), nullptr);
         break;
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            EndPaint(hWnd, &ps);
+            RECT rect;
+            HDC hdc = BeginPaint(hwnd, &ps);
+            GetClientRect(hwnd, &rect);
+
+            draw_quad(hdc, rect, RGB(57, 57, 57), RGB(0, 0, 0), 0);
+                
+            EndPaint(hwnd, &ps);
+            return 0;
         }
-        break;
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
     default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
+        return DefWindowProc(hwnd, message, wParam, lParam);
     }
     return 0;
 }
